@@ -87,7 +87,7 @@ def handle_article(_, article):
                 article['author'] = [article['author']]
             authorList = article['author']
             authorsOnPaper = len(authorList)
-            foundOneInDict = False
+            foundOneInDict = True
             for authorName in authorList:
                 if type(authorName) is collections.OrderedDict:
                     authorName = authorName["#text"]
@@ -178,15 +178,15 @@ def handle_article(_, article):
             #            if authorName in aliasdict:
             #                authorName = aliasdict[authorName]
             foundAuthor = None
-            if realName in facultydict:
-                foundAuthor = realName
+            #if realName in facultydict:
+            foundAuthor = realName
             if foundAuthor is not None:
                 log = { 'name' : foundAuthor.encode('utf-8'),
                         'year' : year,
                         'title' : title.encode('utf-8'),
                         'conf' : confname,
                         'area' : areaname,
-                        'institution' : facultydict[foundAuthor],
+                        #'institution' : facultydict[foundAuthor],
                         'numauthors' : authorsOnPaper }
                 if not volume is "":
                     log['volume'] = volume
@@ -218,7 +218,7 @@ def dump_it():
             countAdjusted = authorscoresAdjusted[(authorName, area, year)]
             f.write(authorName.encode('utf-8'))
             f.write(',')
-            f.write((facultydict[authorName].encode('utf-8')))
+            f.write(authorName.encode('utf-8'))
             f.write(',')
             f.write(area)
 #            f.write(',')
